@@ -2,11 +2,17 @@ package com.product.api.service;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.product.api.entity.Category;
 import com.product.api.repository.RepoCategory;
+import com.product.exception.ApiException;
 
 /**
  * Clase SvcCategoryImp
@@ -23,11 +29,20 @@ public class SvcCategoryImp implements SvcCategory{
     RepoCategory repo;
 
     /**
-     * Regresa directamente lo que devuelve el método getCategories() del repositorio
+     * Obtiene la lista de todas las categorías almacenadas en la base de datos.
+     * 
+     * @return ResponseEntity con la lista de categorías y el estado HTTP OK
+     * @throws ApiException si ocurre un error en la consulta a la base de datos
      */
     @Override
-    public List<Category> getCategories() {
-        return repo.getCategories();
+    public ResponseEntity<List<Category>> getCategories() {
+        try {
+            return new ResponseEntity<>(repo.getCategories(), HttpStatus.OK);
+        } catch (DataAccessException e) {
+            throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Error al consultar la base de datos.");
+        }
+    
 
     }
     
