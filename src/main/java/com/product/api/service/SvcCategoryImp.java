@@ -40,7 +40,7 @@ public class SvcCategoryImp implements SvcCategory{
             return new ResponseEntity<>(repo.getCategories(), HttpStatus.OK);
         } catch (DataAccessException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
-                    "Error al consultar la base de datos.");
+                    "Error en la consulta de las categorías de la base de datos.");
         }
     
 
