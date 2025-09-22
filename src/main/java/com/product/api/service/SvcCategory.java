@@ -1,9 +1,7 @@
 package com.product.api.service;
 
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-
 import com.product.api.entity.Category;
 
 /**
@@ -16,6 +14,7 @@ import com.product.api.entity.Category;
  *         Ramírez Venegas Alexa Paola
  */
 public interface SvcCategory {
+
 
     /**
      * Obtiene la lista de todas las categorías.

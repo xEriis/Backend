@@ -1,15 +1,11 @@
 package com.product.api.service;
 
 import java.util.List;
-
 import org.springframework.dao.DataAccessException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.product.api.entity.Category;
 import com.product.api.repository.RepoCategory;
 import com.product.exception.ApiException;
@@ -42,7 +38,6 @@ public class SvcCategoryImp implements SvcCategory{
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,
                     "Error en la consulta de las categorías de la base de datos.");
         }
-    
 
     }
     
