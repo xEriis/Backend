@@ -23,7 +23,7 @@ public interface SvcCategory {
 
     public List<Category> findAll() throws DBAccessException;
     public List<Category> findActive() throws DBAccessException;
-    public ApiResponse create(DtoCategoryIn in)throws DBAccessException;
+    public ApiResponse create(DtoCategoryIn in)throws ApiException;
     public ApiResponse update(DtoCategoryIn in, Integer id);
     public ApiResponse enable(Integer id);
     public ApiResponse disable(Integer id);

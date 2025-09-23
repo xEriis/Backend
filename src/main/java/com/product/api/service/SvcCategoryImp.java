@@ -47,7 +47,7 @@ public class SvcCategoryImp implements SvcCategory{
     }
 
     @Override
-    public ApiResponse create(DtoCategoryIn in) throws DBAccessException{
+    public ApiResponse create(DtoCategoryIn in) throws ApiException{
         try {
             repo.create(in.getCategory(), in.getTag());
             return new ApiResponse("La categoria ha sido registrada");
@@ -77,13 +77,4 @@ public class SvcCategoryImp implements SvcCategory{
         throw new UnsupportedOperationException("Unimplemented method 'disable'");
     }
 
-    /**
-     * Obtiene la lista de todas las categorías almacenadas en la base de datos.
-     * 
-     * @return ResponseEntity con la lista de categorías y el estado HTTP OK
-     * @throws ApiException si ocurre un error en la consulta a la base de datos
-     */
-    
-     
-    
 }
