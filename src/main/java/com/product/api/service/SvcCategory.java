@@ -2,7 +2,13 @@ package com.product.api.service;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+
+import com.product.api.dto.DtoCategoryIn;
 import com.product.api.entity.Category;
+import com.product.commons.dto.ApiResponse;
+import com.product.exception.ApiException;
+import com.product.exception.DBAccessException;
+
 
 /**
  * Interfaz SvcCategory
@@ -15,12 +21,11 @@ import com.product.api.entity.Category;
  */
 public interface SvcCategory {
 
-
-    /**
-     * Obtiene la lista de todas las categorías.
-     * 
-     * @return ResponseEntity que contiene la lista de categorías
-     */
-    public ResponseEntity<List<Category>> getCategories();
+    public List<Category> findAll() throws DBAccessException;
+    public List<Category> findActive() throws DBAccessException;
+    public ApiResponse create(DtoCategoryIn in)throws DBAccessException;
+    public ApiResponse update(DtoCategoryIn in, Integer id);
+    public ApiResponse enable(Integer id);
+    public ApiResponse disable(Integer id);
 
 }
