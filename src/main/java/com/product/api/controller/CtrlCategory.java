@@ -19,6 +19,7 @@ import com.product.api.dto.DtoCategoryIn;
 import com.product.api.entity.Category;
 import com.product.api.service.SvcCategory;
 import com.product.commons.dto.ApiResponse;
+import com.product.exception.DBAccessException;
 
 import jakarta.validation.Valid;
 
@@ -40,7 +41,7 @@ public class CtrlCategory {
 	SvcCategory svc;
 
 	@GetMapping
-	public ResponseEntity<List<Category>> findAll(){
+	public ResponseEntity<List<Category>> findAll() throws DBAccessException{
 		return ResponseEntity.ok(svc.findAll());
 	}
 	

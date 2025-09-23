@@ -1,6 +1,8 @@
 package com.product.api.service;
 
 import java.util.List;
+
+
 import org.springframework.http.ResponseEntity;
 
 import com.product.api.dto.DtoCategoryIn;
@@ -21,9 +23,16 @@ import com.product.exception.DBAccessException;
  */
 public interface SvcCategory {
 
+
+    /**
+     * Getter for the categories.
+     * 
+     * @return A ResponseEntity with a List containing all the categories.
+     */
+    public ResponseEntity<List<Category>> getCategories();
     public List<Category> findAll() throws DBAccessException;
-    public List<Category> findActive() throws DBAccessException;
-    public ApiResponse create(DtoCategoryIn in)throws ApiException;
+    public List<Category> findActive();
+    public ApiResponse create(DtoCategoryIn in);
     public ApiResponse update(DtoCategoryIn in, Integer id);
     public ApiResponse enable(Integer id);
     public ApiResponse disable(Integer id);
