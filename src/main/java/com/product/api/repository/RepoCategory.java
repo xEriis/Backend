@@ -22,19 +22,19 @@ import jakarta.transaction.Transactional;
     @Repository
     public interface RepoCategory extends JpaRepository<Category, Integer> {
 
-       @Query(value ="SELECT * FROM category ORDER BY category_id", nativeQuery = true)
-        // Método getCategories (consulta categorías registradas en la bd utilizando JPA)
-        List<Category> getCategories();
-
-        @Query(value ="SELECT * FROM category ORDER BY category", nativeQuery = true)
-	    List<Category> findAll();
-
         @Query(value ="SELECT * FROM category WHERE status = 1 ORDER BY category", nativeQuery = true)
         List<Category> findActive();
 
         List<Category> findByStatus(Integer status);
         
         List<Category> findByStatusOrderByCategoryAsc(Integer status);
+
+       @Query(value ="SELECT * FROM category ORDER BY category_id", nativeQuery = true)
+        // Método getCategories (consulta categorías registradas en la bd utilizando JPA)
+        List<Category> getCategories();
+
+        @Query(value ="SELECT * FROM category ORDER BY category", nativeQuery = true)
+	    List<Category> findAll();
 
         @Modifying(clearAutomatically = true, flushAutomatically = true)
         @Transactional
@@ -47,13 +47,8 @@ import jakarta.transaction.Transactional;
         void update(@Param("category_id") Integer category_id, @Param("category") String category, @Param("tag") String tag);
 
         @Modifying(clearAutomatically = true, flushAutomatically = true)
-	    @Transactional
-	    @Query(value ="UPDATE category SET status = 1 WHERE category_id = :category_id", nativeQuery = true)
-	    void enable(@Param("category_id") Integer category_id);
-
-        @Modifying(clearAutomatically = true, flushAutomatically = true)
-	    @Transactional
-        @Query(value ="UPDATE category SET status = 0 WHERE category_id = :category_id", nativeQuery = true)
-        void disable(@Param("category_id") Integer category_id);
+        @Transactional
+        @Query(value ="UPDATE region SET status = :status WHERE region_id = :region_id", nativeQuery = true)
+        void updateStatus(@Param("region_id") Integer region_id, @Param("status") Integer status);
     } 
     

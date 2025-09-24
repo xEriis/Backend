@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import com.product.api.dto.DtoCategoryIn;
 import com.product.api.entity.Category;
 import com.product.commons.dto.ApiResponse;
-import com.product.exception.ApiException;
 import com.product.exception.DBAccessException;
 
 
@@ -23,12 +22,6 @@ import com.product.exception.DBAccessException;
  */
 public interface SvcCategory {
 
-
-    /**
-     * Getter for the categories.
-     * 
-     * @return A ResponseEntity with a List containing all the categories.
-     */
     public ResponseEntity<List<Category>> getCategories();
     public List<Category> findAll() throws DBAccessException;
     public List<Category> findActive();

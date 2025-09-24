@@ -85,7 +85,7 @@ public class SvcCategoryImp implements SvcCategory{
     public ApiResponse enable(Integer id) {
         try {
             validateCategoryId(id);
-            repo.enable(id);
+            repo.updateStatus(id,1);
             return new ApiResponse("La región ha sido activada");
         } catch (DataAccessException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al  activar la categoria.");
@@ -97,7 +97,7 @@ public class SvcCategoryImp implements SvcCategory{
     public ApiResponse disable(Integer id) {
         try {
             validateCategoryId(id);
-            repo.disable(id);
+            repo.updateStatus(id,0);
             return new ApiResponse("La región ha sido activada");
         } catch (DataAccessException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al  desactivar la categoria.");
