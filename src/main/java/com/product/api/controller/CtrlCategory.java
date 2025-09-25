@@ -40,31 +40,61 @@ public class CtrlCategory {
     @Autowired
 	SvcCategory svc;
 
+	/**
+	 * Encuentra todas las categorías en la base de datos
+	 * @return regresa un ResponseEntity con una lista de categorías
+	 * @throws DBAccessException arroja una excepción DBAccessException en caso de que haya algún error
+	 */
 	@GetMapping
 	public ResponseEntity<List<Category>> findAll() throws DBAccessException{
 		return ResponseEntity.ok(svc.findAll());
 	}
 	
+	/**
+	 * Encuentra todas las categorías activas 
+	 * @return regresa una ResponseEntity con una lista de categorías
+	 */
 	@GetMapping("/active")
 	public ResponseEntity<List<Category>> findActive(){
 		return ResponseEntity.ok(svc.findActive());
 	}
 	
+	/**
+	 * Crea una nueva categoría y llama al servicio correspondiente
+	 * @param in dto para crear la nueva categoría
+	 * @return regresa ResponseEntity con una ApiResponse
+	 */
 	@PostMapping
 	public ResponseEntity<ApiResponse> create(@Valid @RequestBody DtoCategoryIn in) {
 		return ResponseEntity.ok(svc.create(in));
 	}
 	
+	/**
+	 * Actualiza una región dado un dto y un id 
+	 * @param in dto con los datos correspondiente
+	 * @param id id de la regióń a actualizar
+	 * @return ResponseEntity con una ApiResponse
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<ApiResponse> update(@Valid @RequestBody DtoCategoryIn in, @PathVariable("id") Integer id){
 		return ResponseEntity.ok(svc.update(in, id));
 	}
 
+	/**
+	 * Activa un región dado un id 
+	 * @param id de la región a activar
+	 * @return regresa un ResponseEntity con una ApiResponse
+	 */
 	@PatchMapping("/{id}/enable")
 	public ResponseEntity<ApiResponse> enable(@PathVariable Integer id) {
 		return ResponseEntity.ok(svc.enable(id));
 	}
 
+	/**
+	 * Desactiva una categoría dado un id
+	 * @param id de la categoría a desactivar
+	 * @return regresa un ResponseEntity con una ApiResponse
+	 */
 	@PatchMapping("/{id}/disable")
 	public ResponseEntity<ApiResponse> disable(@PathVariable Integer id) {
 		return ResponseEntity.ok(svc.disable(id));

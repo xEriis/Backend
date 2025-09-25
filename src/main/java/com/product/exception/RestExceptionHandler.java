@@ -45,6 +45,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(response, response.getError());
 	}
 
+	/**
+	 * Método handleDBAccessException(DBAccessException exception, WebRequest request)
+	 * Maneja las excepciones de tipo DBAccessException.
+	 * 
+	 * @param exception excepción capturada
+	 * @param request   objeto con información de la petición
+	 * @return ResponseEntity con los detalles del error
+	 */
 	@ExceptionHandler(DBAccessException.class)
 	protected ResponseEntity<ExceptionResponse> handleDBAccessException(DBAccessException exception, WebRequest request){
 		

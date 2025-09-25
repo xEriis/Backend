@@ -16,7 +16,7 @@ import com.product.exception.ApiException;
 import com.product.exception.DBAccessException;
 
 /**
- * Clase SvcCategoryImp
+ * Clase SvcCategoryImp implenta SvcCategory
  * 
  * @author Martínez Marcelo Ingrid Aylen
  *         Pérez Evaristo Eris
@@ -29,6 +29,11 @@ public class SvcCategoryImp implements SvcCategory{
 
     SvcCategoryImp(){}
 
+    /**
+     * Método que obtiene las categorías en la base de datos
+     * 
+     * @return regresa un ResponseEntity con una lista de todas las categorías
+     */
     @Override
     public ResponseEntity<List<Category>> getCategories() {
         try {
@@ -38,6 +43,11 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método que encuentra todas las categorías en la base de datos
+     * 
+     * @return regresa todas las categorías en la base de datos
+     */
     @Override
     public List<Category> findAll() throws DBAccessException {
         try {
@@ -47,6 +57,11 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método que encuentra todas las categorías activas en la base de datos
+     * 
+     * @return regresa todas las categorías activas en la base de datos
+     */
     @Override
     public List<Category> findActive() {
         try {
@@ -56,6 +71,12 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método que crea una categoría
+     * 
+     * @param in objeto Dto con toda la información correspondiente
+     * @return regresa una ResponseEntity con una ApiResponse
+     */
     @Override
     public ApiResponse create(DtoCategoryIn in) throws ApiException {
         try {
@@ -69,6 +90,13 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método que actualiza una categoría
+     * 
+     * @param in objeto Dto con toda la información correspondiente
+     * @param id id de la categoría a actualizar
+     * @return regresa una ResponseEntity con una ApiResponse
+     */
     @Override
     public ApiResponse update(DtoCategoryIn in, Integer id) {
         try {
@@ -81,6 +109,12 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método que activa una categoría
+     * 
+     * @param id id de la categoría a activa
+     * @return regresa una ResponseEntity con una ApiResponse
+     */
     @Override
     public ApiResponse enable(Integer id) {
         try {
@@ -93,6 +127,12 @@ public class SvcCategoryImp implements SvcCategory{
 
     }
 
+    /**
+     * Método que desactiva una categoría
+     * 
+     * @param id id de la categoría a desactivar
+     * @return regresa una ResponseEntity con una ApiResponse
+     */
     @Override
     public ApiResponse disable(Integer id) {
         try {
@@ -104,6 +144,10 @@ public class SvcCategoryImp implements SvcCategory{
         }
     }
 
+    /**
+     * Método auxiliar para valir el id de una categoría
+     * @param id id a verificar si está presente en la base de datos
+     */
     private void validateCategoryId(Integer id) {
 		try {
 			if(repo.findById(id).isEmpty()) {
