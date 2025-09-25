@@ -2,6 +2,15 @@ package com.product.exception;
 
 import org.springframework.dao.DataAccessException;
 
+/**
+ * Clase DBAAccesException
+ * Cuenta con los parámetros necesarios y extienda la clase Exception para
+ * poder lanzar la excepción.
+ * 
+ * @author Martínez Marcelo Ingrid Aylen
+ *         Pérez Evaristo Eris
+ *         Ramírez Venegas Alexa Paola
+ */
 public class DBAccessException extends Exception{
     private static final long serialVersionUID = 1L;
 	private DataAccessException exception;

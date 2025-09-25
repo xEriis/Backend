@@ -20,6 +20,7 @@ import jakarta.persistence.Id;
 @Table(name = "category")
 public class Category {
     
+    /* Anotaciones */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("category_id")

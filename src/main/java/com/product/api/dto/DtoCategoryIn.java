@@ -4,9 +4,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * Clase DtoCategoryIn
+ * Dto para pasar los datos entre el user y el server.
+ * 
+ * @author Martínez Marcelo Ingrid Aylen
+ *         Pérez Evaristo Eris
+ *         Ramírez Venegas Alexa Paola
+ */
+
 public class DtoCategoryIn {
 
 
+	/**
+	 * Atributos que recibe la API para registrar/actualizar una categoría
+	 */
 	@JsonProperty("category")
 	@NotNull(message="La categoria es obligatoria")
 	private String category;

@@ -70,9 +70,9 @@ public class CtrlCategory {
 	}
 	
 	/**
-	 * Actualiza una región dado un dto y un id 
+	 * Actualiza una categoría dado un dto y un id 
 	 * @param in dto con los datos correspondiente
-	 * @param id id de la regióń a actualizar
+	 * @param id id de la categoría a actualizar
 	 * @return ResponseEntity con una ApiResponse
 	 */
 	@PutMapping("/{id}")
@@ -81,8 +81,8 @@ public class CtrlCategory {
 	}
 
 	/**
-	 * Activa un región dado un id 
-	 * @param id de la región a activar
+	 * Activa una categoría dado un id 
+	 * @param id de la categoría a activar
 	 * @return regresa un ResponseEntity con una ApiResponse
 	 */
 	@PatchMapping("/{id}/enable")

@@ -100,10 +100,15 @@ public class SvcCategoryImp implements SvcCategory{
     @Override
     public ApiResponse update(DtoCategoryIn in, Integer id) {
         try {
+            validateCategoryId(id);
             repo.update(id, in.getCategory(), in.getTag());
-            return new ApiResponse("La región ha sido actualizada");
+            return new ApiResponse("La categoría ha sido actualizada");
         } catch (DataAccessException e) {
-            if(repo.findById(id).isEmpty()) throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+            if (e.getLocalizedMessage().contains("ux_category"))
+				throw new ApiException(HttpStatus.CONFLICT, "El nombre de la categoria ya está registrado");
+            if (e.getLocalizedMessage().contains("ux_tag"))
+				throw new ApiException(HttpStatus.CONFLICT, "El tag de la categoria ya está registrado"); 
+
 
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al actualizar la categoria.");
         }
@@ -120,7 +125,7 @@ public class SvcCategoryImp implements SvcCategory{
         try {
             validateCategoryId(id);
             repo.updateStatus(id,1);
-            return new ApiResponse("La región ha sido activada");
+            return new ApiResponse("La categoría ha sido activada");
         } catch (DataAccessException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al  activar la categoria.");
         }
@@ -138,7 +143,7 @@ public class SvcCategoryImp implements SvcCategory{
         try {
             validateCategoryId(id);
             repo.updateStatus(id,0);
-            return new ApiResponse("La región ha sido activada");
+            return new ApiResponse("La categoría ha sido desactivada");
         } catch (DataAccessException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al  desactivar la categoria.");
         }

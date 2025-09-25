@@ -29,5 +29,4 @@ public interface SvcCategory {
     public ApiResponse update(DtoCategoryIn in, Integer id);
     public ApiResponse enable(Integer id);
     public ApiResponse disable(Integer id);
-
 }

@@ -57,7 +57,7 @@ import jakarta.transaction.Transactional;
 	    List<Category> findAll();
         
         /**
-         * Método create, crea una nueva región en la base de datos
+         * Método create, crea una nueva categoría en la base de datos
          * @param category nombre de la categoría a crear
          * @param tag tag de la categoría a crear
          */
@@ -74,17 +74,17 @@ import jakarta.transaction.Transactional;
          */
         @Modifying(clearAutomatically = true, flushAutomatically = true)
         @Transactional
-        @Query(value ="UPDATE category SET category = :category, tag = : tag WHERE category_id = :category_id", nativeQuery = true)
+        @Query(value ="UPDATE category SET category = :category, tag = :tag WHERE category_id = :category_id", nativeQuery = true)
         void update(@Param("category_id") Integer category_id, @Param("category") String category, @Param("tag") String tag);
 
         /**
          * Método update status (consulta categorías registradas en la bd utilizando JPA)
-         * @param region_id id de la región a actualizar el status
+         * @param category_id id de la category a actualizar el status
          * @param status status a manejar, ya sea 1 para activar o 0 para desactivar 
          */
         @Modifying(clearAutomatically = true, flushAutomatically = true)
         @Transactional
-        @Query(value ="UPDATE region SET status = :status WHERE region_id = :region_id", nativeQuery = true)
-        void updateStatus(@Param("region_id") Integer region_id, @Param("status") Integer status);
+        @Query(value ="UPDATE category SET status = :status WHERE category_id = :category_id", nativeQuery = true)
+        void updateStatus(@Param("category_id") Integer category_id, @Param("status") Integer status);
     } 
     
