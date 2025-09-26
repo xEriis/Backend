@@ -23,7 +23,7 @@ import com.product.exception.DBAccessException;
 public interface SvcCategory {
 
     public ResponseEntity<List<Category>> getCategories();
-    public List<Category> findAll() throws DBAccessException;
+    public List<Category> findAll();
     public List<Category> findActive();
     public ApiResponse create(DtoCategoryIn in);
     public ApiResponse update(DtoCategoryIn in, Integer id);

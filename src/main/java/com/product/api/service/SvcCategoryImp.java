@@ -49,7 +49,7 @@ public class SvcCategoryImp implements SvcCategory{
      * @return regresa todas las categorías en la base de datos
      */
     @Override
-    public List<Category> findAll() throws DBAccessException {
+    public List<Category> findAll() {
         try {
             return repo.findAll();
         }catch (DataAccessException e) {

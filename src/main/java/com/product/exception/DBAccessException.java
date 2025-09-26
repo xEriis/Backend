@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
  *         Pérez Evaristo Eris
  *         Ramírez Venegas Alexa Paola
  */
-public class DBAccessException extends Exception{
+public class DBAccessException extends RuntimeException{
     private static final long serialVersionUID = 1L;
 	private DataAccessException exception;
 	
