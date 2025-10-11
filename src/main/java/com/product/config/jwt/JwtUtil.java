@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.SecretKey;
 
-//import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -20,28 +20,31 @@ import io.jsonwebtoken.Jwts;
 /**
  * Clase para generar y validar JSON Web Tokens (JWT) en la aplicación.
  * 
- * @author Carlos López Rodríguez
+ * @author Martínez Marcelo Ingrid Aylen
+ *         Pérez Evaristo Eris
+ *         Ramírez Venegas Alexa Paola
  */
 @Component
 public class JwtUtil {
+    
     private static final String SECRET_KEY = "8J+YjvCfpJPwn5ic8J+YmvCfmI3wn6Ww8J+ZgvCfpKM="; 
     private static final SecretKey secretKey = new SecretKeySpec(Base64.getDecoder().decode(SECRET_KEY), "HmacSHA256");
     
+    //@Value("${system.hostname}")
+    //private String hostname;
 
-    // public String generateToken(Usuario usuario) {
+    //public String generateToken(Usuario usuario) {
     	
-    //     return Jwts.builder()
-    //     		.claim("id", usuario.getId())
-    //     		.claim("email", usuario.getCorreo())
-    //     		.claim("roles", usuario.getAuthorities())
-    //     		.setIssuer("http://localhost:8080")
-    //     		.setSubject(usuario.getUsername())
-    //             .setAudience("http://localhost:8080")
-    //             .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-    //             .setIssuedAt(new Date())
-    //             .signWith(secretKey, SignatureAlgorithm.HS256)
-    //             .compact();
-    // }
+    //    return Jwts.builder()
+    //    		.claim("id", usuario.getId())
+    //    		.claim("email", usuario.getCorreo())
+    //    		.claim("roles", usuario.getAuthorities())
+    //    		.setSubject(usuario.getUsername())
+    //            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+    //            .setIssuedAt(new Date())
+    //            .signWith(secretKey, SignatureAlgorithm.HS256)
+    //            .compact();
+    //}
 
     /**
      * Método que extrae todos los claims de un token JWT.

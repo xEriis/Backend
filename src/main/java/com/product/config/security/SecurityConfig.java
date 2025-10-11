@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +13,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.product.config.jwt.JwtAuthFilter;
 
+/**
+ * Clase de configuración de seguridad para la aplicación.
+ * Define las reglas de seguridad, los filtros y los manejadores de autenticación.
+ * 
+ * @author Martínez Marcelo Ingrid Aylen
+ *         Pérez Evaristo Eris
+ *         Ramírez Venegas Alexa Paola
+ */
 @Configuration
 public class SecurityConfig {
 
@@ -26,15 +33,21 @@ public class SecurityConfig {
 		http.csrf(AbstractHttpConfigurer::disable)
 		.authorizeHttpRequests(
 				auth -> auth
-				.requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/info", "/actuator/health").permitAll()
+				.requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/info", "/actuator/health")
+				.permitAll()
                 // Category
-				.requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "CUSTOMER")
-                .requestMatchers("/category/**").hasAuthority("ADMIN")
+				.requestMatchers(HttpMethod.GET, "/category/active")
+				.hasAnyAuthority("ADMIN", "CUSTOMER")
+                .requestMatchers("/category/**")
+				.hasAuthority("ADMIN")
                 // Product
-                .requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "CUSTOMER")
-                .requestMatchers("/product/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/product/*")
+				.hasAnyAuthority("ADMIN", "CUSTOMER")
+                .requestMatchers("/product/**")
+				.hasAuthority("ADMIN")
                 // Product-images
-                .requestMatchers("/product-image/**").hasAnyAuthority("ADMIN", "CUSTOMER")
+                .requestMatchers("/product-image/**")
+				.hasAnyAuthority("ADMIN", "CUSTOMER")
 				)
 		.cors(cors -> cors.configurationSource(corsConfig))
 		.httpBasic(Customizer.withDefaults())
@@ -44,5 +57,4 @@ public class SecurityConfig {
 			
 		return http.build();
 	}
-
 }

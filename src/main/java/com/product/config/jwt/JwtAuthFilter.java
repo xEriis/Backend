@@ -16,6 +16,15 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * Filtro de autenticación JWT que intercepta las solicitudes HTTP
+ * para validar y procesar los tokens JWT.
+ * 
+ * @author Martínez Marcelo Ingrid Aylen
+ *         Pérez Evaristo Eris
+ *         Ramírez Venegas Alexa Paola
+ */
+
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter{
     private final JwtUtil jwtUtil;
