@@ -9,7 +9,6 @@ import java.util.function.Function;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.SecretKey;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -30,22 +29,6 @@ public class JwtUtil {
     private static final String SECRET_KEY = "8J+YjvCfpJPwn5ic8J+YmvCfmI3wn6Ww8J+ZgvCfpKM="; 
     private static final SecretKey secretKey = new SecretKeySpec(Base64.getDecoder().decode(SECRET_KEY), "HmacSHA256");
     
-    //@Value("${system.hostname}")
-    //private String hostname;
-
-    //public String generateToken(Usuario usuario) {
-    	
-    //    return Jwts.builder()
-    //    		.claim("id", usuario.getId())
-    //    		.claim("email", usuario.getCorreo())
-    //    		.claim("roles", usuario.getAuthorities())
-    //    		.setSubject(usuario.getUsername())
-    //            .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-    //            .setIssuedAt(new Date())
-    //            .signWith(secretKey, SignatureAlgorithm.HS256)
-    //            .compact();
-    //}
-
     /**
      * Método que extrae todos los claims de un token JWT.
      * 
