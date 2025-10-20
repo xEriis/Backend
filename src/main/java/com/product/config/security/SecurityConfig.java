@@ -36,15 +36,12 @@ public class SecurityConfig {
 				.requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/info", "/actuator/health")
 				.permitAll()
                 // Category
-				.requestMatchers(HttpMethod.GET, "/category/active")
-				.hasAnyAuthority("ADMIN", "CUSTOMER")
-                .requestMatchers("/category/**")
-				.hasAuthority("ADMIN")
+				.requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "CUSTOMER")
+                .requestMatchers("/category/**").hasAuthority("ADMIN")
+				// Implementación en la proxima práctica
                 // Product
-                //.requestMatchers(HttpMethod.GET, "/product/*")
-				//.hasAnyAuthority("ADMIN", "CUSTOMER")
-                //.requestMatchers("/product/**")
-				//.hasAuthority("ADMIN")
+                //.requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "CUSTOMER")
+				//.requestMatchers("/product/**").hasAuthority("ADMIN")
                 // Product-images
                 // .requestMatchers("/product-image/**")
 				// .hasAnyAuthority("ADMIN", "CUSTOMER")
