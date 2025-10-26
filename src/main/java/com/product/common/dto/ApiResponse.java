@@ -1,4 +1,4 @@
-package com.product.commons.dto;
+package com.product.common.dto;
 
 /**
  * Clase de ApiResponse, maneja las respuestas de los accesos de la api
