@@ -6,6 +6,6 @@ import com.product.api.entity.ProductImage;
 
 @Repository
 public interface RepoProductImage extends JpaRepository<ProductImage, Integer> {
-    ProductImage findByCustomerId(Integer product_id);
+    ProductImage findByProductId(Integer product_id);
 }
 
