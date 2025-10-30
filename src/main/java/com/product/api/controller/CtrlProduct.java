@@ -42,12 +42,20 @@ public class CtrlProduct {
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody DtoProductIn in) {
+	public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody DtoProductIn in,
+	BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+		}
 		return svc.createProduct(in);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer id, @Valid @RequestBody DtoProductIn in) {
+	public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer id, @Valid @RequestBody DtoProductIn in,
+	BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			throw new ApiException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
+		}
 		return svc.updateProduct(id, in);
 	}
 

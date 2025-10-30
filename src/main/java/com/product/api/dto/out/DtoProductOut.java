@@ -1,5 +1,8 @@
 package com.product.api.dto.out;
 
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -11,88 +14,65 @@ public class DtoProductOut {
 
 	@Id
     private Integer product_id;
-	private String name;
-	private String surname;
-	private String rfc;
-	private String mail;
-	private String phone_number;
-	private String address;
-	private String region;
-	
+    
+	private String gtin;
+	private String product;
+	private String description;
+	private Float price;
+	private Integer stock;
+	private String category;
     @Transient
-	private String image;
+    //List<String>
+    private List<String> image;
 
     public Integer getProduct_id() {
         return product_id;
     }
-
     public void setProduct_id(Integer product_id) {
         this.product_id = product_id;
     }
-
-    public String getName() {
-        return name;
+    public String getGtin() {
+        return gtin;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setGtin(String gtin) {
+        this.gtin = gtin;
     }
-
-    public String getSurname() {
-        return surname;
+    public String getProduct() {
+        return product;
     }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setProduct(String product) {
+        this.product = product;
     }
-
-    public String getRfc() {
-        return rfc;
+    public String getDescription() {
+        return description;
     }
-
-    public void setRfc(String rfc) {
-        this.rfc = rfc;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    public String getMail() {
-        return mail;
+    public Float getPrice() {
+        return price;
     }
-
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setPrice(Float price) {
+        this.price = price;
     }
-
-    public String getPhone_number() {
-        return phone_number;
+    public Integer getStock() {
+        return stock;
     }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
-
-    public String getAddress() {
-        return address;
+    public String getCategory() {
+        return category;
     }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCategory(String category) {
+        this.category = category;
     }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
-
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
-	
+
     
 }

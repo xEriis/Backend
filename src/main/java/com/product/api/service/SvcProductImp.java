@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -58,9 +59,9 @@ public class SvcProductImp implements SvcProduct{
 			DtoProductOut product = repo.getProduct(id);
 			if(product == null ) throw new ApiException(HttpStatus.NOT_FOUND, "El id del producto no existe");
 
-			String image = readProductImageFile(id);
+			List<String> image = readProductImageFile(id);
 			product.setImage(image);
-			return new ResponseEntity<>(null, HttpStatus.OK);
+			return new ResponseEntity<>(product, HttpStatus.OK);
 		}catch (DataAccessException e) {
 			throw new DBAccessException(e);
 		}
@@ -145,30 +146,29 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
-	private String readProductImageFile(Integer product_id) {
+	private List<String> readProductImageFile(Integer product_id) {
 	    try {
-		ProductImage productImage = repoProductImage.findByProduct_id(product_id);
-		if(productImage == null)
-			return "";
+		List<ProductImage> pImage = repoProductImage.findByProduct_id(product_id);
+		if (pImage == null) return List.of();
+		List<String> images = new ArrayList<>();
+		for (ProductImage products : pImage) {
+			String imageUrl = products.getImage();
+			// Si la URL comienza con "/" la eliminamos para obtener la ruta relativa
+			if (imageUrl.startsWith("/")) {
+					imageUrl = imageUrl.substring(1);
+			}
 		
-		String imageUrl = productImage.getImage();
+			// Construir el Path
+			Path imagePath = Paths.get(uploadDir, imageUrl);
 		
-		// Si la URL comienza con "/" la eliminamos para obtener la ruta relativa
-	  	 if (imageUrl.startsWith("/")) {
-	       	    imageUrl = imageUrl.substring(1);
-	   	}
-	  
-	  	 // Construir el Path
-	  	 Path imagePath = Paths.get(uploadDir, imageUrl);
-	  
-	  	 // Verifica que el archivo exista
-	   	if (!Files.exists(imagePath))
-	   	    return "";
-	  
-		// Leer los bytes de la imagen y codificarlos a Base64
-		byte[] imageBytes = Files.readAllBytes(imagePath);
-		return Base64.getEncoder().encodeToString(imageBytes);
-	    
+			// Verifica que el archivo exista
+			if (!Files.exists(imagePath));
+		
+			// Leer los bytes de la imagen y codificarlos a Base64
+			byte[] imageBytes = Files.readAllBytes(imagePath);
+			images.add(Base64.getEncoder().encodeToString(imageBytes));
+		}
+		return images;
 	    }catch (DataAccessException e) {
 	    	throw new DBAccessException(e);
 	    }catch (IOException e) {

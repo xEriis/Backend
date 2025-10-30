@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.product.exception.ApiException;
@@ -29,7 +30,7 @@ public class SvcProductImageImp implements SvcProductImage {
     private String uploadDir;
     
     @Override
-    public ApiResponse uploadProductImage(DtoProductImageIn in) {
+    public ResponseEntity<ApiResponse> uploadProductImage(DtoProductImageIn in) {
         try {
             // Elimina el prefijo de base64 de la imagen
             if (in.getImage().startsWith("data:image")) {
@@ -57,12 +58,25 @@ public class SvcProductImageImp implements SvcProductImage {
             // Guardar la ruta de la imagen
             repo.save(productImage);
 
-            return new ApiResponse("La imagen ha sido actualizada");
+            return new ResponseEntity<>(new ApiResponse("La imagen ha sido actualizada"), HttpStatus.OK);
         }catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
         catch (IOException e) {
             throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar el archivo");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ApiResponse> deleteProductImage(Integer product_image_id) {
+        try {
+            if(repo.findById(product_image_id).isEmpty()){
+                throw new ApiException(HttpStatus.NOT_FOUND, "¡id de imagen inexistente!");
+            }
+            repo.disableProductImage(product_image_id);
+            return new ResponseEntity<>(new ApiResponse("Imagen eliminada con éxito"), HttpStatus.OK);
+        } catch (DataAccessException e) {
+            throw new DBAccessException(e);
         }
     }
 }
