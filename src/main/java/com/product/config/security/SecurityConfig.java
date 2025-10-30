@@ -40,11 +40,11 @@ public class SecurityConfig {
                 .requestMatchers("/category/**").hasAuthority("ADMIN")
 				// Implementación en la proxima práctica
                 // Product
-                //.requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "CUSTOMER")
-				//.requestMatchers("/product/**").hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "CUSTOMER")
+				.requestMatchers("/product/**").hasAuthority("ADMIN")
                 // Product-images
-                // .requestMatchers("/product-image/**")
-				// .hasAnyAuthority("ADMIN", "CUSTOMER")
+                .requestMatchers("/product-image/**")
+				.hasAnyAuthority("ADMIN", "CUSTOMER")
 				)
 		.cors(cors -> cors.configurationSource(corsConfig))
 		.httpBasic(Customizer.withDefaults())

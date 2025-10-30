@@ -57,7 +57,7 @@ public class SvcProductImageImp implements SvcProductImage {
             // Guardar la ruta de la imagen
             repo.save(productImage);
 
-            return new ApiResponse("La imagen del cliente ha sido actualizada");
+            return new ApiResponse("La imagen ha sido actualizada");
         }catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
