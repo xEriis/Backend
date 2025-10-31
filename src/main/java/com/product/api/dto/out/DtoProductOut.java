@@ -22,7 +22,6 @@ public class DtoProductOut {
 	private Integer stock;
 	private String category;
     @Transient
-    //List<String>
     private List<String> image;
 
     public Integer getProduct_id() {

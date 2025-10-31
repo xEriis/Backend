@@ -32,10 +32,6 @@ public class ProductImage{
     @Column(name = "status")
     private Integer status; 
 
-    public ProductImage(){
-
-    }
-
     /**
      * Metodo para establecer el valor de product_image_id
      * @param product_image_id

@@ -57,10 +57,8 @@ public class SvcProductImp implements SvcProduct{
 		try {
 			validateProductId(id);
 			DtoProductOut product = repo.getProduct(id);
-			if(product == null ) throw new ApiException(HttpStatus.NOT_FOUND, "El id del producto no existe");
-
-			List<String> image = readProductImageFile(id);
-			product.setImage(image);
+			List<String> images = readProductImageFile(id);
+			product.setImage(images);
 			return new ResponseEntity<>(product, HttpStatus.OK);
 		}catch (DataAccessException e) {
 			throw new DBAccessException(e);
