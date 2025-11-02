@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,15 +69,30 @@ public class SvcProductImageImp implements SvcProductImage {
     }
 
     @Override
-    public ResponseEntity<ApiResponse> deleteProductImage(Integer product_image_id) {
+    public ResponseEntity<ApiResponse> deleteProductImage(Integer id, Integer product_image_id) {
         try {
             if(repo.findById(product_image_id).isEmpty()){
                 throw new ApiException(HttpStatus.NOT_FOUND, "¡id de imagen inexistente!");
             }
             repo.disableProductImage(product_image_id);
-            return new ResponseEntity<>(new ApiResponse("Imagen eliminada con éxito"), HttpStatus.OK);
+            return new ResponseEntity<>(new ApiResponse("La imagen ha sido eliminada"), HttpStatus.OK);
         } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
     }
+
+    @Override
+    public ResponseEntity<List<ProductImage>> getProductImages(Integer id) {
+        try{
+            List<ProductImage> images = repo.findByProductId(id);
+            if (images.isEmpty()) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "Este producto no tiene imagenes");
+            }
+            return new ResponseEntity<>(images, HttpStatus.OK);
+        }catch (DataAccessException e){
+            throw new DBAccessException(e);
+        }
+        
+    }
+    
 }
