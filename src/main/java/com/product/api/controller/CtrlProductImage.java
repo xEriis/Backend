@@ -31,6 +31,12 @@ public class CtrlProductImage {
     @Autowired
     SvcProductImage svc;
 
+    /**
+     * Crea una productImage para un producto en particular
+     * @param in dto con los datos necesarios para crear el productImage
+     * @param bindingResult resultado de validación de los datos de entrada
+     * @return regresa un APIResponse indicando el resultado de la operaición
+     */
     @PostMapping
     public ResponseEntity<ApiResponse> createProductImage(@Valid @RequestBody DtoProductImageIn in,
     BindingResult bindingResult) {
@@ -40,11 +46,22 @@ public class CtrlProductImage {
    	    return svc.uploadProductImage(in);
     }
 
+    /**
+     * Elimina una imagen de un producto cambiando su status a 0
+     * @param id id del producto con imagen a eliminar
+     * @param product_image_id id de la imagen a eliminar
+     * @return regresa un APIResponse indicando el resultado de la operación
+     */
     @DeleteMapping("/{product_image_id}")
     public ResponseEntity<ApiResponse> deleteProductImage(@PathVariable Integer id, @PathVariable Integer product_image_id) {
    	    return svc.deleteProductImage(id, product_image_id);
     }
 
+    /**
+     * Obtiene una lista de las imagenes de un producto dado
+     * @param id id del producto a obtener imagenes
+     * @return regresa una lista con las imagenes del producto solicitado
+     */
     @GetMapping
 	  public ResponseEntity<List<ProductImage>> getProductImages(@PathVariable Integer id) {
   		return svc.getProductImages(id);

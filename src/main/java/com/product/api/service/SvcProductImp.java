@@ -42,6 +42,11 @@ public class SvcProductImp implements SvcProduct{
 	@Value("${app.upload.dir}")
 	private String uploadDir;
 
+	/**
+	 * Getter para obtener la lista de productos
+	 * 
+	 * @return ResponseEntity con la lista de productos
+	 */
 	@Override
 	public ResponseEntity<List<DtoProductListOut>> getProducts() {
 		try {
@@ -52,6 +57,12 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Getter para obtener un producto por su id
+	 * 
+	 * @param id identificador del producto
+	 * @return ResponseEntity con el producto solicitado
+	 */
 	@Override
 	public ResponseEntity<DtoProductOut> getProduct(Integer id) {
 		try {
@@ -65,6 +76,12 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Método para crear un nuevo producto
+	 * 
+	 * @param in un objeto DtoProductIn
+	 * @return ResponseEntity
+	 */
 	@Override
 	public ResponseEntity<ApiResponse> createProduct(DtoProductIn in) {
 		try {
@@ -89,6 +106,13 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Método para actualizar un producto existente
+	 * 
+	 * @param id identificador del producto a actualizar
+	 * @param in objeto DtoProductIn con la información
+	 * @return ResponseEntity con un ApiResponse
+	 */
 	@Override
 	public ResponseEntity<ApiResponse> updateProduct(Integer id, DtoProductIn in) {
 		try {
@@ -108,6 +132,12 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Metodo para habilitar un producto
+	 * 
+	 * @param id identificador del producto a habilitar
+	 * @return ResponseEntity con un ApiResponse
+	 */
 	@Override
 	public ResponseEntity<ApiResponse> enableProduct(Integer id) {
 		try {
@@ -121,6 +151,12 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Metodo para deshabilitar un producto
+	 * 
+	 * @param id identificador del producto a deshabilitar
+	 * @return ResponseEntity con un ApiResponse
+	 */
 	@Override
 	public ResponseEntity<ApiResponse> disableProduct(Integer id) {
 		try {
@@ -134,6 +170,10 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 	
+	/**
+	 * Método para validar si el id del producto existe
+	 * @param id id del producto a comprobar si es que existe
+	 */
 	private void validateProductId(Integer id) {
 		try {
 			if(repo.findById(id).isEmpty()) {
@@ -144,6 +184,11 @@ public class SvcProductImp implements SvcProduct{
 		}
 	}
 
+	/**
+	 * Método para leer la imagen y obtener la lista de imagenes asociadas a un producto
+	 * @param product_id id del producto a leer y obtener sus imagenes
+	 * @return lista con las imagenes del producto solicitado
+	 */
 	private List<String> readProductImageFile(Integer product_id) {
 	    try {
 		List<ProductImage> pImage = repoProductImage.findByProduct_id(product_id);

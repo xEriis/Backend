@@ -12,6 +12,11 @@ import com.product.api.entity.Product;
 @Service
 public class MapperProduct {
 	
+	/**
+	 * Método para mapear una lista de productos a una lista de DtoProductListOut
+	 * @param products lista de productos a mapear
+	 * @return lista de DtoProductListOut mapeada
+	 */
 	public List<DtoProductListOut> fromProductList(List<Product> products){
 		List<DtoProductListOut> list = new ArrayList<>();
 		for(Product product: products) {
@@ -26,6 +31,11 @@ public class MapperProduct {
 		return list;
 	}
 
+	/**
+	 * Método para mapear un DtoProductIn a un objeto Product
+	 * @param dto DtoProductIn a mapear
+	 * @return objeto Product mapeado
+	 */
 	public Product fromDto(DtoProductIn dto) {
 		Product product = new Product();
 		product.setGtin(dto.getGtin());
@@ -39,6 +49,12 @@ public class MapperProduct {
         return product;
 	}
 	
+	/**
+	 * Método para mapear un DtoProductIn a un objeto Product con un id específico
+	 * @param id id del producto
+	 * @param dto DtoProductIn a mapear
+	 * @return objeto Product mapeado con el id especificado
+	 */
 	public Product fromDto(Integer id, DtoProductIn dto) {
 		Product product = fromDto(dto);
 		product.setProduct_id(id);

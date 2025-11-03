@@ -9,10 +9,14 @@ import com.product.api.entity.Product;
 
 @Repository
 public interface RepoProduct extends JpaRepository<Product, Integer> {
+
+    /**
+     * Mëtodo getProduct, obtiene el producto solicitado
+     * @param product_id id del producto a obtener
+     * @return regresa producto solicitado dadas las especificaciones del DTOProductOut
+     */
     @Query(value = "SELECT p.*, c.category "
-    + "FROM product p "
-    + "INNER JOIN category c ON p.category_id = c.category_id "
-	+ "WHERE p.product_id = :product_id;", nativeQuery = true)
+    + "FROM product p " + "INNER JOIN category c ON p.category_id = c.category_id " + "WHERE p.product_id = :product_id;", nativeQuery = true)
     DtoProductOut getProduct(Integer product_id);
 
 }

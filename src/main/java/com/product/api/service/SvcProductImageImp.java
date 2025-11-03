@@ -30,6 +30,11 @@ public class SvcProductImageImp implements SvcProductImage {
     @Value("${app.upload.dir}")
     private String uploadDir;
     
+    /**
+     * Método para actualizar o crear la imagen de un producto
+     * @param in dto con los datos necesario para actualizar o crear la imagen de un producto
+     * @return APIResponse con el resultado de la operación
+     */
     @Override
     public ResponseEntity<ApiResponse> uploadProductImage(DtoProductImageIn in) {
         try {
@@ -68,6 +73,12 @@ public class SvcProductImageImp implements SvcProductImage {
         }
     }
 
+    /**
+     * Método para borrar la imagen de un producto solicitado
+     * @param id id del producto con imagen a borrar
+     * @param product_image_id id de la imagen a borrar
+     * @return APIResponse con el resultado de la operación
+     */
     @Override
     public ResponseEntity<ApiResponse> deleteProductImage(Integer id, Integer product_image_id) {
         try {
@@ -81,6 +92,11 @@ public class SvcProductImageImp implements SvcProductImage {
         }
     }
 
+    /**
+     * Método para obtener las imagenes asociadas a un producto
+     * @param id id del producto a obtener las imágenes
+     * @return Lista con las imagenes del producto solicitado
+     */
     @Override
     public ResponseEntity<List<ProductImage>> getProductImages(Integer id) {
         try{
