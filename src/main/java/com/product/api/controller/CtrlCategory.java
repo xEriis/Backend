@@ -21,6 +21,8 @@ import com.product.api.service.SvcCategory;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.DBAccessException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 /**
@@ -35,6 +37,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/category")
+@Tag(name = "Category", description = "Operaciones relacionadas con las categorías")
 public class CtrlCategory {
 
     @Autowired
@@ -46,6 +49,9 @@ public class CtrlCategory {
 	 * @throws DBAccessException arroja una excepción DBAccessException en caso de que haya algún error
 	 */
 	@GetMapping
+	@Operation(
+		summary = "Encuentra todas las categorías", 
+		description = "Regresa todas las categorías en la base de datos")
 	public ResponseEntity<List<Category>> findAll() throws DBAccessException{
 		return ResponseEntity.ok(svc.findAll());
 	}
@@ -55,6 +61,9 @@ public class CtrlCategory {
 	 * @return regresa una ResponseEntity con una lista de categorías
 	 */
 	@GetMapping("/active")
+	@Operation(
+		summary = "Encuentra todas las categorías activas", 
+		description = "Regresa todas las categorías activas en la base de datos")
 	public ResponseEntity<List<Category>> findActive(){
 		return ResponseEntity.ok(svc.findActive());
 	}
@@ -65,6 +74,9 @@ public class CtrlCategory {
 	 * @return regresa ResponseEntity con una ApiResponse
 	 */
 	@PostMapping
+	@Operation(
+		summary = "Crea una categoría", 
+		description = "Regresa una responseEntity con el resultado de la operación")
 	public ResponseEntity<ApiResponse> create(@Valid @RequestBody DtoCategoryIn in) {
 		return ResponseEntity.ok(svc.create(in));
 	}
@@ -76,6 +88,9 @@ public class CtrlCategory {
 	 * @return ResponseEntity con una ApiResponse
 	 */
 	@PutMapping("/{id}")
+	@Operation(
+		summary = "Actualiza una categoría", 
+		description = "Regresa una responseEntity con el resultado de la operación")
 	public ResponseEntity<ApiResponse> update(@Valid @RequestBody DtoCategoryIn in, @PathVariable("id") Integer id){
 		return ResponseEntity.ok(svc.update(in, id));
 	}
@@ -86,6 +101,9 @@ public class CtrlCategory {
 	 * @return regresa un ResponseEntity con una ApiResponse
 	 */
 	@PatchMapping("/{id}/enable")
+	@Operation(
+		summary = "Activa una categoría", 
+		description = "Regresa una response entity con el resultado de la operación")
 	public ResponseEntity<ApiResponse> enable(@PathVariable Integer id) {
 		return ResponseEntity.ok(svc.enable(id));
 	}
@@ -96,6 +114,9 @@ public class CtrlCategory {
 	 * @return regresa un ResponseEntity con una ApiResponse
 	 */
 	@PatchMapping("/{id}/disable")
+	@Operation(
+		summary = "Desactiva una categoría", 
+		description = "Regresa una response entity con el resultado de la operación")
 	public ResponseEntity<ApiResponse> disable(@PathVariable Integer id) {
 		return ResponseEntity.ok(svc.disable(id));
 	}

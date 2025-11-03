@@ -24,8 +24,12 @@ import com.product.api.service.SvcProductImage;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/product/{id}/image")
+@Tag(name = "Product Image", description = "Operaciones relacionadas las imagenes de los productos")
 public class CtrlProductImage {
 
     @Autowired
@@ -38,6 +42,9 @@ public class CtrlProductImage {
      * @return regresa un APIResponse indicando el resultado de la operaición
      */
     @PostMapping
+    @Operation(
+      summary = "Crea o actualiza un producto", 
+      description = "Regresa un APIResponse con el resultado de la operación")
     public ResponseEntity<ApiResponse> createProductImage(@Valid @RequestBody DtoProductImageIn in,
     BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -53,6 +60,9 @@ public class CtrlProductImage {
      * @return regresa un APIResponse indicando el resultado de la operación
      */
     @DeleteMapping("/{product_image_id}")
+    @Operation(
+      summary = "Elimina un producto", 
+      description = "Regresa un APIResponse con el resultado de la operación")
     public ResponseEntity<ApiResponse> deleteProductImage(@PathVariable Integer id, @PathVariable Integer product_image_id) {
    	    return svc.deleteProductImage(id, product_image_id);
     }
@@ -63,6 +73,9 @@ public class CtrlProductImage {
      * @return regresa una lista con las imagenes del producto solicitado
      */
     @GetMapping
+    @Operation(
+      summary = "Obtiene las imagenes de un producto", 
+      description = "Regresa una lista con las imagenes del producto")
 	  public ResponseEntity<List<ProductImage>> getProductImages(@PathVariable Integer id) {
   		return svc.getProductImages(id);
 	  }
