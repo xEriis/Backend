@@ -22,10 +22,13 @@ import com.product.api.service.SvcProduct;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/product")
+@Tag(name = "Product", description = "Operaciones relacionadas los productos")
 public class CtrlProduct {
 
 	@Autowired
@@ -36,6 +39,9 @@ public class CtrlProduct {
 	 * @return lista de productos
 	 */
 	@GetMapping
+	@Operation(
+		summary = "Encuentra los productos", 
+		description = "Regresa una lista con los productos")
 	public ResponseEntity<List<DtoProductListOut>> getProducts() {
 		return svc.getProducts();
 	}
@@ -46,6 +52,9 @@ public class CtrlProduct {
 	 * @return regresa el producto solicitado
 	 */
 	@GetMapping("/{id}")
+	@Operation(
+		summary = "Encuentra un producto", 
+		description = "Obtiene el prouducto solicitado")
 	public ResponseEntity<DtoProductOut> getProduct(@PathVariable Integer id) {
 		return svc.getProduct(id);
 	}
@@ -56,6 +65,9 @@ public class CtrlProduct {
 	 * @return regresa una respuesta de APIResponse indicando el resultado de la operación
 	 */
 	@PostMapping
+	@Operation(
+		summary = "Crea un producto", 
+		description = "Regresa un APIResponse con el resultado de la operación")
 	public ResponseEntity<ApiResponse> createProduct(@Valid @RequestBody DtoProductIn in,
 	BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -72,6 +84,9 @@ public class CtrlProduct {
 	 * @return regresa un APIResponse indicando el resultado de la operación
 	 */
 	@PutMapping("/{id}")
+	@Operation(
+		summary = "Actualiza un producto", 
+		description = "Regresa un APIResponse con el resultado de la oepración")
 	public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer id, @Valid @RequestBody DtoProductIn in,
 	BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -86,6 +101,9 @@ public class CtrlProduct {
 	 * @return regresa un APIResponse del resultado de la operación
 	 */
 	@PatchMapping("/{id}/enable")
+	@Operation(
+		summary = "Activa un producto", 
+		description = "Regresa un APIResponse con el resultado de la operación")
 	public ResponseEntity<ApiResponse> enableProduct(@PathVariable Integer id) {
 		return svc.enableProduct(id);
 	}
@@ -96,6 +114,9 @@ public class CtrlProduct {
 	 * @return regresa un APIResponse del resultado de la operación
 	 */
 	@PatchMapping("/{id}/disable")
+	@Operation(
+		summary = "Desactiva un producto", 
+		description = "Regresa un APIResponse con el resultado de la operación")
 	public ResponseEntity<ApiResponse> disableProduct(@PathVariable Integer id) {
 		return svc.disableProduct(id);
 	}
