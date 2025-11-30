@@ -218,4 +218,62 @@ public class SvcProductImp implements SvcProduct{
 	    	throw new ApiException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al leer el archivo");
 	    }
 	}
+
+	/**
+	 * Método para obtener un producto por GTIN.
+	 *
+	 * @param gtin GTIN del producto.
+	 * @return ResponseEntity con DtoProductOut y código HTTP apropiado.
+	 * @throws ApiException si no se encuentra el producto.
+	 */
+	@Override
+	public ResponseEntity<DtoProductOut> getProductByGtin(String gtin) {
+		try {
+			// Buscamos por GTIN y que el status sea 1 (activo)
+			Product product = repo.findByGtinAndStatus(gtin, 1)
+					.orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Product not found"));
+
+			// Mapper actual convierte List o crea desde DtoIn.
+
+			DtoProductOut out = new DtoProductOut();
+			out.setProduct_id(product.getProduct_id());
+			out.setGtin(product.getGtin());
+			out.setProduct(product.getProduct());
+			out.setDescription(product.getDescription());
+			out.setPrice(product.getPrice());
+			out.setStock(product.getStock());
+			out.setCategory(""); // No es vital para el carrito
+
+			return new ResponseEntity<>(out, HttpStatus.OK);
+
+		} catch (DataAccessException e) {
+			throw new DBAccessException(e);
+		}
+	}
+
+	/**
+	 * Método para actualizar (restar) la cantidad indicada del stock del producto
+	 * identificado por GTIN.
+	 *
+	 * @param gtin     GTIN del producto.
+	 * @param quantity Cantidad a restar del stock.
+	 * @return ResponseEntity con ApiResponse (mensaje) y código HTTP
+	 *         apropiado.
+	 * @throws ApiException si producto no encontrado o stock insuficiente.
+	 */
+	@Override
+	public ResponseEntity<ApiResponse> updateProductStock(String gtin, Integer quantity) {
+		Product product = repo.findByGtinAndStatus(gtin, 1)
+				.orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Product not found"));
+
+		if (quantity > product.getStock()) {
+			throw new ApiException(HttpStatus.BAD_REQUEST, "Stock insuficiente");
+		}
+
+		// Se resta el stock
+		product.setStock(product.getStock() - quantity); // Restamos la cantidad
+		repo.save(product); // Se guarda en la BD de productos
+
+		return new ResponseEntity<>(new ApiResponse("Stock actualizado"), HttpStatus.OK);
+	}
 }

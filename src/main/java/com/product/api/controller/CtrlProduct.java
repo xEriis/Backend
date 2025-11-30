@@ -21,6 +21,8 @@ import com.product.api.dto.out.DtoProductOut;
 import com.product.api.service.SvcProduct;
 import com.product.common.dto.ApiResponse;
 import com.product.exception.ApiException;
+import com.product.exception.DBAccessException;
+import com.product.api.dto.out.DtoProductOut;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -58,6 +60,7 @@ public class CtrlProduct {
 	public ResponseEntity<DtoProductOut> getProduct(@PathVariable Integer id) {
 		return svc.getProduct(id);
 	}
+
 	/**
 	 * Crea un nuevo producto
 	 * @param in datos del producto a crear
@@ -119,5 +122,37 @@ public class CtrlProduct {
 		description = "Regresa un APIResponse con el resultado de la operación")
 	public ResponseEntity<ApiResponse> disableProduct(@PathVariable Integer id) {
 		return svc.disableProduct(id);
+	}
+
+	// Agregados
+
+	/**
+	 * Obtiene un producto activo por su GTIN.
+	 *
+	 * @param gtin GTIN del producto a buscar (path variable).
+	 * @return ResponseEntity con el DtoProductOut en caso de éxito.
+	 * @throws ApiException si el producto no se encuentra (404).
+	 * @throws DBAccessException si ocurre un error en la capa de acceso a datos.
+	 */
+	@GetMapping("/gtin/{gtin}")
+	@Operation(summary = "Obtener producto por GTIN")
+	public ResponseEntity<DtoProductOut> getProductByGtin(@PathVariable("gtin") String gtin) {
+		return svc.getProductByGtin(gtin);
+	}
+
+	/**
+	 * Actualiza (reduce) el stock de un producto identificado por su GTIN.
+	 * 
+	 * @param gtin     GTIN del producto (path variable).
+	 * @param quantity Cantidad a restar del stock (path variable). Debe ser >= 1.
+	 * @return ResponseEntity con un ApiResponse que contiene el mensaje de
+	 *         la operación.
+	 * @throws ApiException si stock insuficiente o producto no encontrado.
+	 */
+	@PutMapping("/{gtin}/stock/{quantity}")
+	@Operation(summary = "Actualizar stock", description = "Resta stock del inventario")
+	public ResponseEntity<ApiResponse> updateProductStock(@PathVariable("gtin") String gtin,
+			@PathVariable("quantity") Integer quantity) {
+		return svc.updateProductStock(gtin, quantity);
 	}
 }

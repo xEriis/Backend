@@ -8,6 +8,7 @@ import com.product.api.dto.in.DtoProductIn;
 import com.product.api.dto.out.DtoProductListOut;
 import com.product.api.dto.out.DtoProductOut;
 import com.product.common.dto.ApiResponse;
+import com.product.exception.ApiException;
 
 /**
  * Interfaz para el servicio de productos
@@ -61,5 +62,27 @@ public interface SvcProduct {
 	 * @return ResponseEntity con un ApiResponse
 	 */
 	public ResponseEntity<ApiResponse> disableProduct(Integer id);
+
+	// Agregados
+
+	/**
+	 * Método para obtener un producto por GTIN.
+	 *
+	 * @param gtin GTIN del producto.
+	 * @return ResponseEntity con DtoProductOut y código HTTP apropiado.
+	 * @throws ApiException si no se encuentra el producto.
+	 */
+	public ResponseEntity<DtoProductOut> getProductByGtin(String gtin);
+
+	/**
+	 * Método para actualizar (restar) la cantidad indicada del stock del producto identificado por GTIN.
+	 *
+	 * @param gtin     GTIN del producto.
+	 * @param quantity Cantidad a restar del stock.
+	 * @return ResponseEntity con ApiResponse (mensaje) y código HTTP
+	 *         apropiado.
+	 * @throws ApiException si producto no encontrado o stock insuficiente.
+	 */
+	public ResponseEntity<ApiResponse> updateProductStock(String gtin, Integer quantity);
 
 }

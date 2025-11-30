@@ -38,14 +38,18 @@ public class SecurityConfig {
                 // Category
 				.requestMatchers(HttpMethod.GET, "/category/active").hasAnyAuthority("ADMIN", "CUSTOMER")
                 .requestMatchers("/category/**").hasAuthority("ADMIN")
-				// Implementación en la proxima práctica
+				// Proyecto: Permitir buscar por GTIN (para el carrito)
+    			.requestMatchers(HttpMethod.GET, "/product/gtin/**").hasAnyAuthority("ADMIN", "CUSTOMER")
+				// Proyecto: Permitir actualizar stock (para finalizar la compra)
+				// Necesario porque es el token del cliente el que viaja hasta aquí
+				.requestMatchers(HttpMethod.PUT, "/product/*/stock/*").hasAnyAuthority("ADMIN", "CUSTOMER")
                 // Product
                 .requestMatchers(HttpMethod.GET, "/product/*").hasAnyAuthority("ADMIN", "CUSTOMER")
 				.requestMatchers("/product/**").hasAuthority("ADMIN")
                 // Product-images
                 .requestMatchers("/product-image/**")
 				.hasAnyAuthority("ADMIN", "CUSTOMER")
-				)
+			)
 		.cors(cors -> cors.configurationSource(corsConfig))
 		.httpBasic(Customizer.withDefaults())
 		.formLogin(form -> form.disable())
