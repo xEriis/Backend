@@ -1,0 +1,34 @@
+package com.product.api.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.product.api.dto.out.DtoProductOut;
+import com.product.api.entity.Product;
+
+@Repository
+public interface RepoProduct extends JpaRepository<Product, Integer> {
+
+    /**
+     * Mëtodo getProduct, obtiene el producto solicitado
+     * @param product_id id del producto a obtener
+     * @return regresa producto solicitado dadas las especificaciones del DTOProductOut
+     */
+    @Query(value = "SELECT p.*, c.category "
+    + "FROM product p " + "INNER JOIN category c ON p.category_id = c.category_id " + "WHERE p.product_id = :product_id;", nativeQuery = true)
+    DtoProductOut getProduct(Integer product_id);
+
+    /**
+     * Busca un producto por su GTIN y por su estado (status).
+     *
+     * @param gtin   GTIN del producto.
+     * @param status Valor del campo status
+     * @return Optional con el Product si existe y tiene el status indicado,
+     *         o empty en caso contrario.
+     */
+    Optional<Product> findByGtinAndStatus(String gtin, Integer status);
+
+}
